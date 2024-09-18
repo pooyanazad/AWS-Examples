@@ -1,0 +1,14 @@
+import boto3
+
+def list_objects_in_bucket(bucket_name):
+    s3 = boto3.client('s3')
+    response = s3.list_objects_v2(Bucket=bucket_name)
+
+    if 'Contents' in response:
+        for obj in response['Contents']:
+            print(obj['Key'])
+    else:
+        print("No objects found in the bucket.")
+
+if __name__ == "__main__":
+    list_objects_in_bucket('your-bucket-name')

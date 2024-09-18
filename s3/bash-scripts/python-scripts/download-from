@@ -1,0 +1,9 @@
+import boto3
+
+def download_file_from_s3(bucket_name, object_name, file_name):
+    s3 = boto3.client('s3')
+    s3.download_file(bucket_name, object_name, file_name)
+    print(f"File '{object_name}' downloaded from bucket '{bucket_name}' as '{file_name}'.")
+
+if __name__ == "__main__":
+    download_file_from_s3('your-bucket-name', 'object-name-in-s3', 'local-file-name.txt')

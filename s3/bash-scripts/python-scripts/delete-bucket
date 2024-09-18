@@ -1,0 +1,25 @@
+import boto3
+from botocore.exceptions import ClientError
+
+def delete_bucket_and_contents(bucket_name):
+    s3 = boto3.client('s3')
+
+    # List all objects in the bucket
+    try:
+        objects = s3.list_objects_v2(Bucket=bucket_name)
+
+        # Delete all objects in the bucket
+        if 'Contents' in objects:
+            for obj in objects['Contents']:
+                s3.delete_object(Bucket=bucket_name, Key=obj['Key'])
+                print(f"Deleted object: {obj['Key']}")
+
+        # After deleting all objects, delete the bucket itself
+        s3.delete_bucket(Bucket=bucket_name)
+        print(f"Bucket '{bucket_name}' deleted successfully.")
+
+    except ClientError as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    delete_bucket_and_contents('your-bucket-name')

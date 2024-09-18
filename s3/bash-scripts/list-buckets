@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Set the region (not required for listing buckets, but can be included if needed)
+REGION="eu-north-1"
+
+# List all S3 buckets
+aws s3api list-buckets --query "Buckets[*].Name" --output table
+
+# Check if the command was successful
+if [ $? -eq 0 ]; then
+    echo "Buckets listed successfully."
+else
+    echo "Failed to list buckets."
+fi

@@ -1,0 +1,20 @@
+import boto3
+
+def count_active_ec2_instances():
+    # Create a session using your default credentials and region
+    session = boto3.Session()
+    ec2 = session.resource('ec2')
+
+    # Filter for running instances
+    running_instances = ec2.instances.filter(
+        Filters=[{'Name': 'instance-state-name', 'Values': ['running']}]
+    )
+
+    # Count the running instances
+    count = sum(1 for _ in running_instances)
+    
+    return count
+
+if __name__ == "__main__":
+    active_count = count_active_ec2_instances()
+    print(f"Number of active EC2 instances: {active_count}")

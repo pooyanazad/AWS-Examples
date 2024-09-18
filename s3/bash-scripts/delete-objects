@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Set your region and bucket name
+REGION="eu-north-1"
+BUCKET_NAME="$1"
+
+# Check if bucket name is provided
+if [ -z "$BUCKET_NAME" ]; then
+    echo "Usage: $0 <bucket-name>"
+    exit 1
+fi
+
+# List all objects in the bucket and delete them
+echo "Removing all objects from bucket: $BUCKET_NAME"
+
+# Use AWS CLI to list and delete objects
+aws s3api list-objects-v2 --bucket "$BUCKET_NAME" --region "$REGION" --query "Contents[].{Key: Key}" --output text | while read -r key; do
+    echo "Deleting object: $key"
+    aws s3api delete-object --bucket "$BUCKET_NAME" --key "$key" --region "$REGION"
+done
+
+echo "All objects removed from bucket: $BUCKET_NAME"
