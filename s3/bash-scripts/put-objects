@@ -1,1 +1,24 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Prompt the user for a bucket name and file path
+read -p "Enter the S3 bucket name: " BUCKET_NAME
+read -p "Enter the file path to upload: " FILE_PATH
+
+# Set the region
+REGION="eu-north-1"
+
+# Check if the bucket name and file path are provided
+if [ -z "$BUCKET_NAME" ] || [ -z "$FILE_PATH" ]; then
+    echo "Bucket name and file path cannot be empty."
+    exit 1
+fi
+
+# Upload the file to the S3 bucket
+aws s3 cp "$FILE_PATH" "s3://$BUCKET_NAME/" --region "$REGION"
+
+# Check if the upload was successful
+if [ $? -eq 0 ]; then
+    echo "File '$FILE_PATH' uploaded to bucket '$BUCKET_NAME' successfully."
+else
+    echo "Failed to upload file to bucket '$BUCKET_NAME'."
+fi

@@ -1,1 +1,23 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Prompt the user for a bucket name
+read -p "Enter the S3 bucket name to delete: " BUCKET_NAME
+
+# Set the region
+REGION="eu-north-1"
+
+# Check if the bucket name is provided
+if [ -z "$BUCKET_NAME" ]; then
+    echo "Bucket name cannot be empty."
+    exit 1
+fi
+
+# Delete the S3 bucket
+aws s3api delete-bucket --bucket "$BUCKET_NAME" --region "$REGION"
+
+# Check if the bucket deletion was successful
+if [ $? -eq 0 ]; then
+    echo "Bucket '$BUCKET_NAME' deleted successfully."
+else
+    echo "Failed to delete bucket '$BUCKET_NAME'. Make sure it's empty."
+fi

@@ -1,1 +1,24 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Prompt the user for a bucket name and directory to sync
+read -p "Enter the S3 bucket name: " BUCKET_NAME
+read -p "Enter the directory to sync: " DIR_PATH
+
+# Set the region
+REGION="eu-north-1"
+
+# Check if the bucket name and directory path are provided
+if [ -z "$BUCKET_NAME" ] || [ -z "$DIR_PATH" ]; then
+    echo "Bucket name and directory path cannot be empty."
+    exit 1
+fi
+
+# Sync the directory to the S3 bucket
+aws s3 sync "$DIR_PATH" "s3://$BUCKET_NAME/" --region "$REGION"
+
+# Check if the sync was successful
+if [ $? -eq 0 ]; then
+    echo "Directory '$DIR_PATH' synced to bucket '$BUCKET_NAME' successfully."
+else
+    echo "Failed to sync directory to bucket '$BUCKET_NAME'."
+fi

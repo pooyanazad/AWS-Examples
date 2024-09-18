@@ -1,1 +1,23 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Prompt the user for a bucket name
+read -p "Enter the S3 bucket name to list objects: " BUCKET_NAME
+
+# Set the region
+REGION="eu-north-1"
+
+# Check if the bucket name is provided
+if [ -z "$BUCKET_NAME" ]; then
+    echo "Bucket name cannot be empty."
+    exit 1
+fi
+
+# List the objects in the S3 bucket
+aws s3api list-objects --bucket "$BUCKET_NAME" --region "$REGION"
+
+# Check if the command was successful
+if [ $? -eq 0 ]; then
+    echo "Objects listed successfully."
+else
+    echo "Failed to list objects in bucket '$BUCKET_NAME'."
+fi
