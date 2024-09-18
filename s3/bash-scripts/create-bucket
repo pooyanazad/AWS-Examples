@@ -1,1 +1,29 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Check if a bucket name was provided
+if [ $# -eq 0 ]; then
+    echo "Error: No bucket name provided."
+    echo "Usage: $0 <bucket-name>"
+    exit 1
+fi
+
+# Get the bucket name from the command line argument
+BUCKET_NAME=$1
+
+# Validate the bucket name
+if [[ ! $BUCKET_NAME =~ ^[a-z0-9.-]{3,63}$ ]]; then
+    echo "Error: Invalid bucket name."
+    echo "Bucket names must be between 3 and 63 characters long, and can contain only lowercase letters, numbers, hyphens, and periods."
+    exit 1
+fi
+
+# Create the S3 bucket
+echo "Creating S3 bucket: $BUCKET_NAME"
+aws s3api create-bucket --bucket "$BUCKET_NAME" --region eu-north1
+
+# Check if the bucket was created successfully
+if [ $? -eq 0 ]; then
+    echo "Bucket '$BUCKET_NAME' created successfully."
+else
+    echo "Failed to create bucket '$BUCKET_NAME'. Please check your AWS credentials and permissions."
+fi
