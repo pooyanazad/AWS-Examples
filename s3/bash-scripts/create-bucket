@@ -19,7 +19,7 @@ fi
 
 # Create the S3 bucket
 echo "Creating S3 bucket: $BUCKET_NAME"
-aws s3api create-bucket --bucket "$BUCKET_NAME" --region eu-north1
+aws s3api create-bucket --bucket "$BUCKET_NAME" --region eu-north-1
 
 # Check if the bucket was created successfully
 if [ $? -eq 0 ]; then
