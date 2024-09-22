@@ -1,10 +1,15 @@
-AWSTemplateFormatVersion : "2010-09-09"
-Description : Simple s3 bucket creator 
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Simple S3 bucket creator
+
 Resources:
   S3Bucket:
-    #https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucket.html
     Type: 'AWS::S3::Bucket'
-    DeletionPolicy: Retain
-    #commented below to create a bucket with a random name
-    #Properties:
-      #BucketName: DOC-EXAMPLE-BUCKET
+    DeletionPolicy: Retain # Retains the bucket even after stack deletion
+    Properties:
+      AccessControl: Private # Ensures the bucket is private
+      # CloudFormation will automatically create a unique name for the bucket
+
+Outputs:
+  BucketName:
+    Description: "Name of the S3 bucket"
+    Value: !Ref S3Bucket

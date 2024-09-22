@@ -1,7 +1,19 @@
 #!/bin/bash
-echo "== deploy s3 bucket via CFN"
+
 STACK_NAME="cfn-s3-simple"
+REGION="eu-north-1"
+TEMPLATE_FILE="template.yaml"
+
+echo "== Deploying S3 bucket via CloudFormation =="
+
 aws cloudformation deploy \
---template-file template.yaml \
---region eu-north-1 \
---stack-name $STACK_NAME
+    --template-file $TEMPLATE_FILE \
+    --region $REGION \
+    --stack-name $STACK_NAME
+
+if [ $? -eq 0 ]; then
+  echo "== Stack deployment successful. Check the AWS Console for details =="
+else
+  echo "== Stack deployment failed =="
+  exit 1
+fi

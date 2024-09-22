@@ -1,0 +1,17 @@
+#!/bin/bash
+
+STACK_NAME="cfn-s3-simple"
+REGION="eu-north-1"
+
+echo "== Deleting S3 bucket via CloudFormation =="
+
+aws cloudformation delete-stack \
+    --stack-name $STACK_NAME \
+    --region $REGION
+
+if [ $? -eq 0 ]; then
+  echo "== Stack deletion initiated. It may take a few minutes. =="
+else
+  echo "== Stack deletion failed =="
+  exit 1
+fi
