@@ -6,17 +6,18 @@ REGION="eu-north-1"
 # Function to create a new EC2 instance
 create_instance() {
     echo "Choose the type of EC2 instance you want to create:"
-    echo "1) t2.micro"
+    echo "1) t3.micro"
     echo "2) t2.small"
     echo "3) t2.medium"
     read -p "Enter choice [1-3]: " INSTANCE_TYPE_CHOICE
 
     case $INSTANCE_TYPE_CHOICE in
-        1) INSTANCE_TYPE="t2.micro" ;;
+        1) INSTANCE_TYPE="t3.micro" ;;
         2) INSTANCE_TYPE="t2.small" ;;
         3) INSTANCE_TYPE="t2.medium" ;;
-        *) echo "Invalid choice. Defaulting to t2.micro"; INSTANCE_TYPE="t2.micro" ;;
+        *) echo "Invalid choice. Defaulting to t2.micro"; INSTANCE_TYPE="t3.micro" ;;
     esac
+4
 
     echo "Choose the AMI for the instance:"
     echo "1) Ubuntu 24.04 (ami-04cdc91e49cb06165)"
