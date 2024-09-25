@@ -19,14 +19,14 @@ create_instance() {
     esac
 
     echo "Choose the AMI for the instance:"
-    echo "1) Ubuntu 20.04 (ami-0e7795b6891b91d29)"
-    echo "2) Amazon Linux 2 (ami-0c55b159cbfafe1f0)"
+    echo "1) Ubuntu 24.04 (ami-04cdc91e49cb06165)"
+    echo "2) Amazon Linux 2023 (ami-0129bfde49ddb0ed6)"
     read -p "Enter choice [1-2]: " AMI_CHOICE
 
     case $AMI_CHOICE in
-        1) AMI_ID="ami-0e7795b6891b91d29" ;;  # Ubuntu 20.04 for eu-north-1
-        2) AMI_ID="ami-0c55b159cbfafe1f0" ;;  # Amazon Linux 2 for eu-north-1
-        *) echo "Invalid choice. Defaulting to Ubuntu 20.04"; AMI_ID="ami-0e7795b6891b91d29" ;;
+        1) AMI_ID="ami-04cdc91e49cb06165" ;;  # Ubuntu 24.04 for eu-north-1
+        2) AMI_ID="ami-0129bfde49ddb0ed6" ;;  # Amazon Linux 2023 for eu-north-1
+        *) echo "Invalid choice. Defaulting to Ubuntu 24.04"; AMI_ID="ami-04cdc91e49cb06165" ;;
     esac
 
     read -p "Enter a key pair name (make sure it exists): " KEY_NAME
