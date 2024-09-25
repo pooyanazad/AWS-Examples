@@ -17,7 +17,6 @@ create_instance() {
         3) INSTANCE_TYPE="t2.medium" ;;
         *) echo "Invalid choice. Defaulting to t2.micro"; INSTANCE_TYPE="t3.micro" ;;
     esac
-4
 
     echo "Choose the AMI for the instance:"
     echo "1) Ubuntu 24.04 (ami-04cdc91e49cb06165)"
